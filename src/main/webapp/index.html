@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app>
+  <head>
+    <title>Todo app</title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <style type="text/css">
+      .done-true {
+        text-decoration: line-through;        
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" ng-controller="TodoController">
+      <h1>Todo list</h1>
+      <div class="alert alert-info">
+        Completed: {{ remaining() }} / {{ total() }}
+      </div>
+      <form>
+        <ul class="unstyled">
+          <li ng-repeat="todo in todos">
+            <label class="checkbox">
+              <input type="checkbox" ng-model="todo.done"/>
+              <span class="done-{{ todo.done }}">{{ todo.text }}</span>
+            </label>                  
+          </li>
+        </ul>
+      </form>
+      <form ng-submit="add()">
+        <div class="input-append">
+          <input type="text" ng-model="text"/>
+          <button class="btn btn-primary" type="submit">
+            <i class="icon-plus icon-white"></i> Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>    
+</html>
