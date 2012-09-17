@@ -34,9 +34,14 @@
           <input type="text" ng-model="text"/>
           <button class="btn btn-primary" type="submit">
             <i class="icon-plus icon-white"></i> Add
-          </button>
+          </button>          
         </div>
       </form>
+      <div>        
+        <button class="btn" type="button" ng-click="cleanup()">
+          <i class="icon-trash"></i> Remove the completed items
+        </button>
+      </div>
     </div>
   </body>    
 </html>

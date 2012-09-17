@@ -43,4 +43,15 @@ function TodoController($scope, $http) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}        
     });
   };
+  
+  $scope.cleanup = function() {
+    _.each($scope.todos, function(todo) {
+      if (todo.done) {
+        $http.delete('api/todo/' + todo.id);
+      }
+    });
+    $scope.todos = _.reject($scope.todos, function(todo) {
+      return todo.done;
+    });
+  };
 }
