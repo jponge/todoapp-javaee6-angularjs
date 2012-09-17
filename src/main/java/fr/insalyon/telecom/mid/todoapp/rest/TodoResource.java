@@ -26,7 +26,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 @Stateless
 public class TodoResource {
   
-  @Inject
+  @EJB
   private Todos todos;
   
   @GET
