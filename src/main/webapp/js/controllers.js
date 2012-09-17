@@ -1,6 +1,14 @@
-function TodoController($scope) {
+function TodoController($scope, $http) {
   
-  $scope.idGen = 3;
+  $scope.todos = [];
+  
+  $scope.refreshTodos = function() {
+    $http.get('api/todo').success(function(data) {
+      $scope.todos = data;
+    });
+  };  
+  
+  $scope.refreshTodos();
   
   $scope.total = function() {
     return $scope.todos.length;
@@ -12,16 +20,27 @@ function TodoController($scope) {
     }).length;
   };
   
-  $scope.todos = [
-    {id:1, text:"Wash the car", done:true},
-    {id:2, text:"Shopping", done:false}
-  ];
-  
   $scope.add = function() {
     if (this.text) {
-      $scope.todos.push({id:$scope.idGen, text:this.text, done:false});
-      $scope.idGen = $scope.idGen + 1;
+      var text = this.text;
       this.text = "";
+      $http({
+        method: 'POST',
+        url: 'api/todo',
+        data: 'text=' + text,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}        
+      }).success(function(data) {
+        $scope.refreshTodos();
+      });      
     }
+  };
+  
+  $scope.mark = function(todo) {
+    $http({
+      method: 'PUT',
+      url: 'api/todo/' + todo.id,
+      data: 'done=' + todo.done,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}        
+    });
   };
 }
