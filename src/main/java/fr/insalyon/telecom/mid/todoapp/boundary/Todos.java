@@ -24,8 +24,10 @@ public class Todos implements Serializable {
 
   @PersistenceContext(unitName = "TodoAppPU")
   EntityManager em;
+  
   @Resource(mappedName = "jms/TodoConnectionFactory")
   QueueConnectionFactory jmsConnectionFactory;
+  
   @Resource(mappedName = "jms/CompletedTodoQueue")
   Queue queue;
 
